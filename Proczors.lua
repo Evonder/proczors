@@ -48,11 +48,10 @@ local PlaySound = PlaySound
 local c = select(2, UnitClass("player"))
 
 local MAJOR_VERSION = "@project-version@"
-local PATCH_VERSION = "@file-abbreviated-hash@"
 if (find(MAJOR_VERSION, "release" or "beta")) then
 	PS.version = MAJOR_VERSION
 else
-	PS.version = "r" .. PATCH_VERSION .. " DEV"
+	PS.version = MAJOR_VERSION .. " DEV"
 end
 PS.date = "@file-date-iso@"
 
