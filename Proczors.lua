@@ -3,7 +3,7 @@ Proczors
 	Instant PROC Notification
 
 File Author: @file-author@
-File Revision: @file-revision@
+File Revision: @file-abbreviated-hash@
 File Date: @file-date-iso@
 
 * Copyright (c) 2008, Erik Vonderscheer
@@ -48,7 +48,7 @@ local PlaySound = PlaySound
 local c = select(2, UnitClass("player"))
 
 local MAJOR_VERSION = "@project-version@"
-local PATCH_VERSION = "@project-revision@"
+local PATCH_VERSION = "@file-abbreviated-hash@"
 if (find(MAJOR_VERSION, "release" or "beta")) then
 	PS.version = MAJOR_VERSION
 else
