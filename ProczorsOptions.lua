@@ -14,6 +14,7 @@ local ipairs = ipairs
 local pairs = pairs
 local insert = table.insert
 local sort = table.sort
+local sub = string.sub
 local c = select(2, UnitClass("player"))
 
 --[[ Options Table ]]--
@@ -29,7 +30,7 @@ options = {
 			args = {
 				mainHeader = {
 					type = "description",
-					name = "  " .. L["PSD"] .. "\n  " .. PS.version .. "\n  " .. string.sub(PS.date,6,7) .. "-" .. string.sub(PS.date,9,10) .. "-" .. string.sub(PS.date,1,4),
+					name = "  " .. L["PSD"] .. "\n  " .. PS.version .. "\n  " .. sub(PS.date,6,7) .. "-" .. sub(PS.date,9,10) .. "-" .. sub(PS.date,1,4),
 					order = 1,
 					image = "Interface\\Icons\\Ability_Warrior_Bloodsurge",
 					imageWidth = 32, imageHeight = 32,
