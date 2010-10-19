@@ -126,7 +126,7 @@ end
 
 function PS:IsLoggedIn()
 	self:RegisterEvent("COMBAT_LOG_EVENT", "Proczors")
-	self:RegisterEvent("UNIT_AURA", "Proczors")
+--~ 	self:RegisterEvent("UNIT_AURA", "Proczors")
 	PS:LoadLBF()
 	PS:RefreshLocals()
 	if (PS.db.profile.firstlogin) then
@@ -338,7 +338,7 @@ end
 --[[ Registered Event ]]--
 function PS:Proczors(self, event, ...)
 	if (PS.db.profile.debug) then
-		PS:PrintIt("Proczors: Proczors() We have an event!")
+		PS:PrintIt("Proczors: We have an event!")
 	end
 	if (event == "COMBAT_LOG_EVENT" or "COMBAT_LOG_EVENT_UNFILTERED") then
 		if (PS.db.profile.debug) then
