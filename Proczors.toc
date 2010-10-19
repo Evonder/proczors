@@ -2,7 +2,6 @@
 ## X-Compatible-With: 30300 
 ## Title: Proc|cffffffffzors|r
 ## Notes: Instant PROC notification
-## Author: evonder
 ## Author: @project-author@
 ## X-Date: @project-date-iso@
 ## X-eMail: evonder AT gmail DOT com
