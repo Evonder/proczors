@@ -1,5 +1,4 @@
 ## Interface: 40000
-## X-Compatible-With: 30300 
 ## Title: Proc|cffffffffzors|r
 ## Notes: Instant PROC notification
 ## Author: @project-author@
@@ -11,6 +10,7 @@
 ## OptionalDeps: Ace3, LibAboutPanel, LibSharedMedia-3.0, ButtonFacade
 ## X-License: BSD
 ## Version: @project-version@
+
 ## SavedVariables: ProczorsDB
 
 ## LoadManagers: AddonLoader
