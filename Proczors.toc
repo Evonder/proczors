@@ -4,11 +4,12 @@
 ## Author: @project-author@
 ## X-Date: @project-date-iso@
 ## X-eMail: evonder AT gmail DOT com
+## X-License: BSD
 ## X-Website: http://www.wowace.com/projects/proczors/
 ## X-Category: Buffs
 ## X-Localizations: enUS, frFR, zhCN, zhTW
-## OptionalDeps: Ace3, LibAboutPanel, LibSharedMedia-3.0, ButtonFacade
-## X-License: BSD
+
+## OptionalDeps: Ace3, LibAboutPanel, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, ButtonFacade
 ## Version: @project-version@
 
 ## SavedVariables: ProczorsDB
