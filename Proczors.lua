@@ -48,7 +48,7 @@ local PlaySound = PlaySound
 local c = select(2, UnitClass("player"))
 
 local MAJOR_VERSION = "@project-version@"
-if (find(MAJOR_VERSION, "release" or "beta")) then
+if (select(3,find(MAJOR_VERSION, "(%a+)")) ~= "alpha") then
 	PS.version = MAJOR_VERSION
 else
 	PS.version = MAJOR_VERSION .. " DEV"
