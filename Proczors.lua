@@ -50,11 +50,11 @@ local c = select(2, UnitClass("player"))
 
 local MAJOR_VERSION = "@project-version@"
 if (select(3,find(MAJOR_VERSION, "(%a+)")) == "beta") then
-	TF3.version = sub(MAJOR_VERSION, 0, 10)
+	PS.version = sub(MAJOR_VERSION, 0, 10)
 elseif (select(3,find(MAJOR_VERSION, "(%a+)")) == "release") then
-	TF3.version = sub(MAJOR_VERSION, 0, 13)
+	PS.version = sub(MAJOR_VERSION, 0, 13)
 else
-	TF3.version = sub(MAJOR_VERSION, -8) .. " DEV"
+	PS.version = sub(MAJOR_VERSION, -8) .. " DEV"
 end
 PS.date = "@file-date-iso@"
 
