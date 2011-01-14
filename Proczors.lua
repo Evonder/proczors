@@ -147,6 +147,7 @@ function PS:GetClass(c)
 	if (c == "MAGE") then return L.MAGE end
 	if (c == "PALADIN") then return L.PALADIN end
 	if (c == "PRIEST") then return L.PRIEST end
+	if (c == "ROGUE") then return L.ROGUE end
 	if (c == "SHAMAN") then return L.SHAMAN end
 	if (c == "WARLOCK") then return L.WARLOCK end
 	if (c == "WARRIOR") then return L.WARRIOR end
