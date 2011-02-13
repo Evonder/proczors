@@ -380,7 +380,7 @@ function PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 			elseif (find(spellId,v) or find(spellName,v)) then
 				local name,_,spellTexture = GetSpellInfo(spellId or spellName)
 				if (PS.db.profile.Sound) then
-					PlaySoundFile(PS.SoundFile)
+					PlaySoundFile(PS.SoundFile, "SFX")
 				end
 				if (PS.db.profile.Flash) then
 					PS:Flash()
