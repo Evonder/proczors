@@ -20,10 +20,10 @@ File Date: @file-date-iso@
 *       names of its contributors may be used to endorse or promote products
 *       derived from this software without specific prior written permission.
 *
-* THIS SOFTWARE IS PROVIDED BY ERIK VONDERSCHEER ''AS IS'' AND ANY
+* THIS SOFTWARE IS PROVIDED BY @file-author@ ''AS IS'' AND ANY
 * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL <copyright holder> BE LIABLE FOR ANY
+* DISCLAIMED. IN NO EVENT SHALL @file-author@ BE LIABLE FOR ANY
 * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUPSTITUTE GOODS OR SERVICES;
 * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -31,6 +31,7 @@ File Date: @file-date-iso@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
+
 Proczors = LibStub("AceAddon-3.0"):NewAddon("Proczors", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Proczors")
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
@@ -38,23 +39,19 @@ local LBF = LibStub("LibButtonFacade", true)
 local PS = Proczors
 
 --[[ Locals ]]--
-local AddonName = "Proczors"
 local find = string.find
 local ipairs = ipairs
 local pairs = pairs
 local insert = table.insert
 local sort = table.sort
 local sub = string.sub
-local PlaySound = PlaySound
 local c = select(2, UnitClass("player"))
 
-local MAJOR_VERSION = "@project-version@"
-if (select(3,find(MAJOR_VERSION, "(%a+)")) == "beta") then
-	PS.version = sub(MAJOR_VERSION, 0, 10)
-elseif (select(3,find(MAJOR_VERSION, "(%a+)")) == "release") then
-	PS.version = sub(MAJOR_VERSION, 0, 13)
+local MAJOR_VERSION = GetAddOnMetadata("Proczors", "Version")
+if (len(MAJOR_VERSION)<=6) then
+	PS.version = sub(MAJOR_VERSION, 0, 6)
 else
-	PS.version = sub(MAJOR_VERSION, -8) .. " DEV"
+	PS.version = MAJOR_VERSION .. " DEV"
 end
 PS.date = "@file-date-iso@"
 
