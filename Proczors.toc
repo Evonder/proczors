@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 40100
 ## Title: Proc|cffffffffzors|r
 ## Notes: Instant PROC notification
 ## Author: @project-author@
