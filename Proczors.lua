@@ -347,7 +347,7 @@ function PS:Proczors(self, event, ...)
 		if (PS.db.profile.debug) then
 			PS:PrintIt("Proczors: COMBAT_LOG_EVENT or COMBAT_LOG_EVENT_UNFILTERED")
 		end
-		if (if tocVersion < 40200) then
+		if (tocVersion < 40200) then
 			local combatEvent, _, _, sourceName, _, _, _, _, spellId, spellName = select(1, ...)
 		else 
 			local combatEvent, _, _, sourceName, _, _, _, _, _, _, spellId, spellName = select(1, ...)
