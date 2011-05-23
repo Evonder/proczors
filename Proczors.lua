@@ -35,7 +35,7 @@ File Date: @file-date-iso@
 Proczors = LibStub("AceAddon-3.0"):NewAddon("Proczors", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Proczors")
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
-local LBF = LibStub("LibButtonFacade", true)
+--~ local LBF = LibStub("LibButtonFacade", true)
 local PS = Proczors
 
 --[[ Locals ]]--
@@ -129,7 +129,7 @@ end
 function PS:IsLoggedIn()
 	self:RegisterEvent("COMBAT_LOG_EVENT", "Proczors")
 --~ 	self:RegisterEvent("UNIT_AURA", "Proczors")
-	PS:LoadLBF()
+--~ 	PS:LoadLBF()
 	PS:RefreshLocals()
 	if (PS.db.profile.firstlogin) then
 		PS.db.profile.SID = PS:GetClass(c)
