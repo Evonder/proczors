@@ -351,7 +351,8 @@ function PS:Proczors(self, event, ...)
 			local combatEvent, _, _, sourceName, _, _, _, _, spellId, spellName = select(1, ...)
 		else 
 			local combatEvent, _, _, sourceName, _, _, _, _, _, _, spellId, spellName = select(1, ...)
-		end		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
+		end
+		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 	elseif (event == "UNIT_AURA" and select(1) == "player") then
 		if (PS.db.profile.debug) then
 			PS:PrintIt("Proczors: UNIT_AURA")
