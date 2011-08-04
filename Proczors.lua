@@ -347,11 +347,7 @@ function PS:Proczors(self, event, ...)
 		if (PS.db.profile.debug) then
 			PS:PrintIt("Proczors: COMBAT_LOG_EVENT or COMBAT_LOG_EVENT_UNFILTERED")
 		end
-		if (tocVersion < 40200) then
-			local combatEvent, _, _, sourceName, _, _, _, _, spellId, spellName = select(1, ...)
-		else 
-			local combatEvent, _, _, sourceName, _, _, _, _, _, _, spellId, spellName = select(1, ...)
-		end
+		local _, combatEvent, _, _, sourceName, _, _, _, _, _, _, spellId, spellName = select(2, ...)
 		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 	elseif (event == "UNIT_AURA" and select(1) == "player") then
 		if (PS.db.profile.debug) then
