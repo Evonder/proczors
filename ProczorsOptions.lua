@@ -365,7 +365,7 @@ options = {
 						},
 						advanced = {
 							type = "group",
-							name = "Advanced",
+							name = L["Advanced"],
 							order = 2,
 							disabled = function()
 								return not PS.db.profile.turnOn
@@ -375,12 +375,13 @@ options = {
 									type	= "header",
 									order	= 1,
 									name	= L["Alternative Combat Log Filtering"],
+									desc = L["Default event tracking is via COMBAT_LOG_EVENT"],
 								},
 								CLEU = {
 									type = 'toggle',
 									order = 2,
 									width = "full",
-									name = L["Alternative Combat Log Filtering"],
+									name = L["Use COMBAT_LOG_EVENT_UNFILTERED"],
 									desc = L["RegCLEUdesc"],
 									disabled = function()
 										return PS.db.profile.UA
@@ -392,7 +393,7 @@ options = {
 									type = 'toggle',
 									order = 3,
 									width = "full",
-									name = L["Alternative Combat Log Filtering"],
+									name = L["Use UNIT_AURA"],
 									desc = L["RegUAdesc"],
 									disabled = function()
 										return PS.db.profile.CLEU

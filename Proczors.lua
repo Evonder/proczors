@@ -127,10 +127,9 @@ function PS:OpenOptions()
 end
 
 function PS:IsLoggedIn()
-	self:RegisterEvent("COMBAT_LOG_EVENT", "Proczors")
---~ 	self:RegisterEvent("UNIT_AURA", "Proczors")
---~ 	PS:LoadLBF()
+	PS:RefreshRegisters()
 	PS:RefreshLocals()
+--~ 	PS:LoadLBF()
 	if (PS.db.profile.firstlogin) then
 		PS.db.profile.SID = PS:GetClass(c)
 		PS.db.profile.firstlogin = false
@@ -339,7 +338,7 @@ function PS:Flash()
 end
 
 --[[ Registered Event ]]--
-function PS:Proczors(self, event, ...)
+function PS:Proczors(event, ...)
 	if (PS.db.profile.debug) then
 		PS:PrintIt("Proczors: We have an event!")
 	end
@@ -347,7 +346,7 @@ function PS:Proczors(self, event, ...)
 		if (PS.db.profile.debug) then
 			PS:PrintIt("Proczors: COMBAT_LOG_EVENT or COMBAT_LOG_EVENT_UNFILTERED")
 		end
-		local _, combatEvent, _, _, sourceName, _, _, _, _, _, _, spellId, spellName = select(2, ...)
+		local timestamp, combatEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool = select(1, ...)
 		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 	elseif (event == "UNIT_AURA" and select(1) == "player") then
 		if (PS.db.profile.debug) then
