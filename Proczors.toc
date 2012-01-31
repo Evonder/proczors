@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: Proc|cffffffffzors|r
 ## Notes: Instant PROC notification
 ## Author: @project-author@
