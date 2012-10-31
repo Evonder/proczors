@@ -50,7 +50,7 @@ local c = select(2, UnitClass("player"))
 local tocVersion = select(4, GetBuildInfo())
 
 local MAJOR_VERSION = GetAddOnMetadata("Proczors", "Version")
-if (len(MAJOR_VERSION)<=6) then
+if (len(MAJOR_VERSION)<=8) then
 	PS.version = sub(MAJOR_VERSION, 0, 8)
 else
 	PS.version = MAJOR_VERSION .. " DEV"
