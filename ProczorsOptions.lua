@@ -49,7 +49,7 @@ options = {
 						else
 							print("|cFF33FF99Proczors|r: " .. PS.version .. " |cffff8080Disabled|r")
 							PS.db.profile.turnOn = not PS.db.profile.turnOn
-							PS:RefreshRegisters()
+							self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
 						end
 					end,
 				},
@@ -372,36 +372,6 @@ options = {
 							end,
 							args = {
 								optionsHeader2 = {
-									type	= "header",
-									order	= 1,
-									name	= L["Alternative Combat Log Filtering"],
-									desc = L["Default event tracking is via COMBAT_LOG_EVENT"],
-								},
-								CLEU = {
-									type = 'toggle',
-									order = 2,
-									width = "full",
-									name = L["Use COMBAT_LOG_EVENT_UNFILTERED"],
-									desc = L["RegCLEUdesc"],
-									disabled = function()
-										return PS.db.profile.UA
-									end,
-									get = function() return PS.db.profile.CLEU end,
-									set = function() PS.db.profile.CLEU = not PS.db.profile.CLEU; PS:RefreshRegisters(); end,
-								},
-								UA = {
-									type = 'toggle',
-									order = 3,
-									width = "full",
-									name = L["Use UNIT_AURA"],
-									desc = L["RegUAdesc"],
-									disabled = function()
-										return PS.db.profile.CLEU
-									end,
-									get = function() return PS.db.profile.UA end,
-									set = function() PS.db.profile.UA = not PS.db.profile.UA; PS:RefreshRegisters(); end,
-								},
-								optionsHeader3 = {
 									type	= "header",
 									order	= 4,
 									name	= L["Enable Debugging"],

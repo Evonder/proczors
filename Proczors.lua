@@ -35,7 +35,7 @@ File Date: @file-date-iso@
 Proczors = LibStub("AceAddon-3.0"):NewAddon("Proczors", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Proczors")
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
---~ local LBF = LibStub("LibButtonFacade", true)
+local MSQ = LibStub("Masque", true)
 local PS = Proczors
 
 --[[ Locals ]]--
@@ -51,7 +51,7 @@ local tocVersion = select(4, GetBuildInfo())
 
 local MAJOR_VERSION = GetAddOnMetadata("Proczors", "Version")
 if (len(MAJOR_VERSION)<=6) then
-	PS.version = sub(MAJOR_VERSION, 0, 6)
+	PS.version = sub(MAJOR_VERSION, 0, 8)
 else
 	PS.version = MAJOR_VERSION .. " DEV"
 end
@@ -76,8 +76,6 @@ defaults = {
     FlashMod = 1.3,
 		Msg = false,
 		Color = {},
-		CLEU = false,
-		UA = false,
 		DefSoundName = "Chime",
 		Skins = {
 			SkinID = "Blizzard",
@@ -127,9 +125,9 @@ function PS:OpenOptions()
 end
 
 function PS:IsLoggedIn()
-	PS:RefreshRegisters()
+	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
 	PS:RefreshLocals()
---~ 	PS:LoadLBF()
+	PS:LoadMSQ()
 	if (PS.db.profile.firstlogin) then
 		PS.db.profile.SID = PS:GetClass(c)
 		PS.db.profile.firstlogin = false
@@ -173,39 +171,6 @@ function PS:PrintIt(txt)
 	print(txt)
 end
 
-function PS:RefreshRegisters()
-	if (PS.db.profile.CLEU) then
-		if (PS.db.profile.debug and PS.db.profile.turnOn) then
-			PS:PrintIt("Proczors: Registering CLEU!")
-		end
-		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
-		self:UnregisterEvent("COMBAT_LOG_EVENT", "Proczors")
-		self:UnregisterEvent("UNIT_AURA", "Proczors")
-	elseif (PS.db.profile.UA) then
-		if (PS.db.profile.debug and PS.db.profile.turnOn) then
-			PS:PrintIt("Proczors: Registering UA!")
-		end
-		self:RegisterEvent("UNIT_AURA", "Proczors")
-		self:UnregisterEvent("COMBAT_LOG_EVENT", "Proczors")
-		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
-	else
-		if (PS.db.profile.debug and PS.db.profile.turnOn) then
-			PS:PrintIt("Proczors: Registering CLE!")
-		end
-		self:RegisterEvent("COMBAT_LOG_EVENT", "Proczors")
-		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
-		self:UnregisterEvent("UNIT_AURA", "Proczors")
-	end
-	if (not PS.db.profile.turnOn) then
-		if (PS.db.profile.debug) then
-			PS:PrintIt("Proczors: Unregistering all events!")
-		end
-		self:UnregisterEvent("COMBAT_LOG_EVENT", "Proczors")
-		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "Proczors")
-		self:UnregisterEvent("UNIT_AURA", "Proczors")
-	end
-end
-
 function PS:UpdateColors()
 	local c = PS.db.profile.Color
 	for k, v in ipairs(c) do
@@ -231,26 +196,26 @@ function PS:RefreshLocals()
 end
 
 --[[ LibButtonFacade ]]--
-function PS:LoadLBF()
-	if LBF then
-		local group = LBF:Group("Proczors", "Icon")
+function PS:LoadMSQ()
+	if MSQ then
+		local group = MSQ:Group("Proczors", "Icon")
 		
 		group.SkinID = PS.db.profile.Skins.SkinID
 		group.Backdrop = PS.db.profile.Skins.Backdrop
 		group.Gloss = PS.db.profile.Skins.Gloss
 		group.Colors = PS.db.profile.Skins.Colors or {}
 		
-		LBF:RegisterSkinCallback("Proczors", PS.SkinChanged, self)
+		MSQ:RegisterSkinCallback("Proczors", PS.SkinChanged, self)
 		
-		LBFGroup = group
+		MSQGroup = group
 	end
 end
 
 function PS:SkinChanged(SkinID, Gloss, Backdrop, Group, Button, Colors)
-		PS.db.profile.Skins.SkinID = SkinID
-		PS.db.profile.Skins.Gloss = Gloss
-		PS.db.profile.Skins.Backdrop = Backdrop
-		PS.db.profile.Skins.Colors = Colors
+	PS.db.profile.Skins.SkinID = SkinID
+	PS.db.profile.Skins.Gloss = Gloss
+	PS.db.profile.Skins.Backdrop = Backdrop
+	PS.db.profile.Skins.Colors = Colors
 end
 
 --[[ Icon Func ]]--
@@ -289,8 +254,8 @@ function PS:Icon(spellTexture)
 			self.elapsed = elapsed
 		end)
 		self.IconFrame = icon
-		if (LBFGroup and icon) then
-			LBFGroup:AddButton(icon)
+		if (MSQGroup and icon) then
+			MSQGroup:AddButton(icon)
 		end
 	end
 	self.IconFrame:Show()
@@ -348,25 +313,6 @@ function PS:Proczors(event, ...)
 		end
 		local timestamp, combatEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool = select(1, ...)
 		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
-	elseif (event == "UNIT_AURA" and select(1) == "player") then
-		if (PS.db.profile.debug) then
-			PS:PrintIt("Proczors: UNIT_AURA")
-		end
-		for i=1,40 do
-			local spellName, _, _, stack, _, _, expirationTime, _, _, _, spellId = UnitAura("player", i)
-			local sourceName = UnitName("player")
-			local now = GetTime()
-			if (expirationTime == nil) then
-			 break
-			elseif (not expirationTimes[spellName] or expirationTimes[spellName] < now) then
-				expirationTimes[spellName] = expirationTime
-				if (stack <= 1) then
-					stack = nil
-				end
-				local combatEvent = stack and "SPELL_AURA_APPLIED_DOSE" or "SPELL_AURA_APPLIED"
-				PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
-			end
-		end
 	end
 end
 
