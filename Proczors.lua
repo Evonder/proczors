@@ -39,6 +39,7 @@ local MSQ = LibStub("Masque", true)
 local PS = Proczors
 
 --[[ Locals ]]--
+local AddonName = "Proczors"
 local find = string.find
 local ipairs = ipairs
 local pairs = pairs
