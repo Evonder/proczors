@@ -76,8 +76,8 @@ defaults = {
     FlashMod = 1.3,
 		Msg = false,
 		Color = {},
-		DefSoundName = "None",
-		DefSound = "None",
+		DefSoundName = "Chimes",
+		DefSound = [[Interface\AddOns\]]..AddonName..[[\sounds\Chime.ogg]],
 		Skins = {
 			SkinID = "Blizzard",
 			Gloss = false,
@@ -107,6 +107,8 @@ function PS:OnInitialize()
 	self.OptionsPanel.about = LAP.new(self.name, self.name)
 	
 	if (LSM) then
+		-- Chime.ogg used from Prat 3.0
+		LSM:Register("sound", "Chimes",[[Interface\AddOns\]]..AddonName..[[\sounds\Chime.ogg]])
 		PS.SoundFile = LSM:Fetch("sound", PS.db.profile.DefSoundName)
 	end
 	
