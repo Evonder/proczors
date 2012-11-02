@@ -1,5 +1,10 @@
 ## Interface: 50001
+#@non-alpha@
 ## Title: Proc|cffffffffzors|r
+#@end-non-alpha@
+#@alpha@
+## Title: Proc|cffffffffzors|r DEV: @project-version@
+#@end-alpha@
 ## Notes: Instant PROC notification
 ## Author: @project-author@
 ## X-Date: @project-date-iso@

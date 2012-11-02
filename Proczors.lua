@@ -76,7 +76,8 @@ defaults = {
     FlashMod = 1.3,
 		Msg = false,
 		Color = {},
-		DefSoundName = "Chime",
+		DefSoundName = "None",
+		DefSound = "None",
 		Skins = {
 			SkinID = "Blizzard",
 			Gloss = false,
@@ -98,13 +99,11 @@ function PS:OnInitialize()
 	AC:RegisterChatCommand("ps", function() PS:OpenOptions() end)
 	AC:RegisterChatCommand("Proczors", function() PS:OpenOptions() end)
 	
-	local ACR = LibStub("AceConfigRegistry-3.0")
-	ACR:RegisterOptionsTable("Proczors", options)
-	ACR:RegisterOptionsTable("ProczorsP", ACP)
+	local ACfg = LibStub("AceConfig-3.0")
+	ACfg:RegisterOptionsTable("Proczors", PS:getOptions())
 
 	-- Set up options panels.
 	self.OptionsPanel = ACD:AddToBlizOptions(self.name, self.name, nil, "generalGroup")
-	self.OptionsPanel.profiles = ACD:AddToBlizOptions("ProczorsP", "Profiles", self.name)
 	self.OptionsPanel.about = LAP.new(self.name, self.name)
 	
 	if (LSM) then
@@ -120,7 +119,6 @@ end
 
 -- :OpenOptions(): Opens the options window.
 function PS:OpenOptions()
-	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel.profiles)
 	InterfaceOptionsFrame_OpenToCategory(self.OptionsPanel)
 end
 
@@ -205,7 +203,7 @@ function PS:LoadMSQ()
 		group.Gloss = PS.db.profile.Skins.Gloss
 		group.Colors = PS.db.profile.Skins.Colors or {}
 		
-		MSQ:RegisterSkinCallback("Proczors", PS.SkinChanged, self)
+		MSQ:Register("Proczors", PS.SkinChanged, self)
 		
 		MSQGroup = group
 	end
