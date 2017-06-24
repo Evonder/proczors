@@ -56,7 +56,7 @@ if (len(MAJOR_VERSION)<=8) then
 else
 	PS.version = MAJOR_VERSION .. " DEV"
 end
-PS.date = "@file-date-iso@"
+PS.date = GetAddOnMetadata("Proczors", "X-Date")
 
 defaults = {
 	profile = {
