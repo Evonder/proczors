@@ -32,7 +32,7 @@ File Date: @file-date-iso@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
-Proczors = LibStub("AceAddon-3.0"):NewAddon("Proczors", "AceConsole-3.0", "AceEvent-3.0")
+local Proczors = Proczors or LibStub("AceAddon-3.0"):NewAddon("Proczors", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Proczors")
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
 local MSQ = LibStub("Masque", true)
@@ -45,8 +45,10 @@ local ipairs = ipairs
 local pairs = pairs
 local insert = table.insert
 local len = string.len
+local lower = string.lower
 local sort = table.sort
 local sub = string.sub
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local c = select(2, UnitClass("player"))
 local tocVersion = select(4, GetBuildInfo())
 
@@ -308,21 +310,24 @@ function PS:Proczors(event, ...)
 	if (PS.db.profile.debug) then
 		PS:PrintIt("Proczors: We have an event!")
 	end
-	if (event == "COMBAT_LOG_EVENT" or "COMBAT_LOG_EVENT_UNFILTERED") then
+	if (event == "COMBAT_LOG_EVENT_UNFILTERED") then
 		if (PS.db.profile.debug) then
-			PS:PrintIt("Proczors: COMBAT_LOG_EVENT or COMBAT_LOG_EVENT_UNFILTERED")
+			PS:PrintIt("Proczors: COMBAT_LOG_EVENT_UNFILTERED")
 		end
-		local timestamp, combatEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool = select(1, ...)
+		local timestamp, combatEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool = CombatLogGetCurrentEventInfo()
 		PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 	end
 end
 
 function PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
+	if (PS.db.profile.debug) then
+		PS:PrintIt("Proczors: " .. combatEvent .. ", " .. sourceName .. ", " .. spellId .. ", " .. spellName)
+	end
 	if (PS.db.profile.turnOn and combatEvent ~= "SPELL_AURA_REMOVED" and combatEvent ~= "SPELL_AURA_REFRESHED" and combatEvent == "SPELL_AURA_APPLIED" and sourceName == UnitName("player")) then
 		for k,v in pairs(PS.db.profile.SID) do
 			if (spellId == nil or spellName == nil) then
 				return
-			elseif (find(spellId,v) or find(spellName,v)) then
+			elseif (find(spellId,v) or find(lower(spellName),lower(v))) then
 				local name,_,spellTexture = GetSpellInfo(spellId or spellName)
 				if (PS.db.profile.Sound) then
 					PlaySoundFile(PS.SoundFile, "SFX")

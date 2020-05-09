@@ -3,7 +3,7 @@ File Author: @file-author@
 File Revision: @file-abbreviated-hash@
 File Date: @file-date-iso@
 ]]--
-local Proczors = LibStub("AceAddon-3.0"):GetAddon("Proczors")
+local Proczors = Proczors or LibStub("AceAddon-3.0"):GetAddon("Proczors")
 local L = LibStub("AceLocale-3.0"):GetLocale("Proczors")
 local PS = Proczors
 
@@ -365,6 +365,7 @@ function PS:getOptions()
 										},
 									},
 								},
+								--@alpha@
 								advanced = {
 									type = "group",
 									name = L["Advanced"],
@@ -395,6 +396,7 @@ function PS:getOptions()
 										},
 									},
 								},
+								--@end-alpha@
 							},
 						},
 						Profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(PS.db),
