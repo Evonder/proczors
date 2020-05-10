@@ -1,7 +1,8 @@
 sudo: false
 language: minimal
  
-script: curl -O https://raw.githubusercontent.com/Evonder/packager/master/release.sh | bash release.sh -l -L
+beforescript: curl -SO https://raw.githubusercontent.com/Evonder/packager/master/release.sh
+afterscript: bash release.sh -l -L
  
 branches:
   only:
