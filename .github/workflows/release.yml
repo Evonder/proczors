@@ -20,8 +20,8 @@ jobs:
       # fetch release from github and make executable
       - name: Fetch Script
         run: |
-        wget -O ~/release.sh https://raw.githubusercontent.com/Evonder/packager/master/release.sh
-        chmod +x ~/release.sh
+          wget -O release.sh https://raw.githubusercontent.com/Evonder/packager/master/release.sh
+          chmod +x release.sh
 
       - name: Package and Push
-        run: ~/release.sh
+        run: ./release.sh
