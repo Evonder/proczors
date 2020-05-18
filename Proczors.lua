@@ -140,16 +140,16 @@ end
 
 --[[ Helper Functions ]]--
 function PS:GetClass(c)
-	if (c == "DEATHKNIGHT") then return L.DEATHKNIGHT end
-	if (c == "DRUID") then return L.DRUID end
-	if (c == "HUNTER") then return L.HUNTER end
-	if (c == "MAGE") then return L.MAGE end
-	if (c == "PALADIN") then return L.PALADIN end
-	if (c == "PRIEST") then return L.PRIEST end
-	if (c == "ROGUE") then return L.ROGUE end
-	if (c == "SHAMAN") then return L.SHAMAN end
-	if (c == "WARLOCK") then return L.WARLOCK end
-	if (c == "WARRIOR") then return L.WARRIOR end
+	if (c == "DEATHKNIGHT") then PS:FixWowAceSubnamespaces("DEATHKNIGHT") end
+	if (c == "DRUID") then PS:FixWowAceSubnamespaces("DRUID") end
+	if (c == "HUNTER") then PS:FixWowAceSubnamespaces("HUNTER") end
+	if (c == "MAGE") then PS:FixWowAceSubnamespaces("MAGE") end
+	if (c == "PALADIN") then PS:FixWowAceSubnamespaces("PALADIN") end
+	if (c == "PRIEST") then PS:FixWowAceSubnamespaces("PRIEST") end
+	if (c == "ROGUE") then PS:FixWowAceSubnamespaces("ROGUE") end
+	if (c == "SHAMAN") then PS:FixWowAceSubnamespaces("SHAMAN") end
+	if (c == "WARLOCK") then PS:FixWowAceSubnamespaces("WARLOCK") end
+	if (c == "WARRIOR") then PS:FixWowAceSubnamespaces("WARRIOR") end
 end
 
 function PS:WipeTable(t)

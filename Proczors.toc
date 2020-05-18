@@ -49,4 +49,5 @@ ProczorsLocale.lua
 
 ## Core ##
 Proczors.lua
+ProczorsDB.lua
 ProczorsOptions.lua
