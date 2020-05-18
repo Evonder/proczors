@@ -14,7 +14,7 @@ local pairs = pairs
 local insert = table.insert
 local sort = table.sort
 local sub = string.sub
-local c = select(2, UnitClass("player"))
+local playerClass, englishClass = UnitClass("player")
 
 --[[ Options Table ]]--
 local options
@@ -325,7 +325,7 @@ function PS:getOptions()
 												local a = {}
 												local ret = ""
 												if (PS.db.profile.SID == nil) then
-													PS.db.profile.SID = PS:GetClass(c)
+													PS:GetClass(englishClass)
 												end
 												for _,v in pairs(PS.db.profile.SID) do
 													insert(a, v)

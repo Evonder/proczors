@@ -49,7 +49,7 @@ local lower = string.lower
 local sort = table.sort
 local sub = string.sub
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local c = select(2, UnitClass("player"))
+local playerClass, englishClass = UnitClass("player")
 local tocVersion = select(4, GetBuildInfo())
 
 local MAJOR_VERSION = GetAddOnMetadata("Proczors", "Version")
@@ -132,24 +132,24 @@ function PS:IsLoggedIn()
 	PS:RefreshLocals()
 	PS:LoadMSQ()
 	if (PS.db.profile.firstlogin) then
-		PS.db.profile.SID = PS:GetClass(c)
+		PS:GetClass(englishClass)
 		PS.db.profile.firstlogin = false
 	end
 	self:UnregisterEvent("PLAYER_LOGIN")
 end
 
 --[[ Helper Functions ]]--
-function PS:GetClass(c)
-	if (c == "DEATHKNIGHT") then PS:FixWowAceSubnamespaces("DEATHKNIGHT") end
-	if (c == "DRUID") then PS:FixWowAceSubnamespaces("DRUID") end
-	if (c == "HUNTER") then PS:FixWowAceSubnamespaces("HUNTER") end
-	if (c == "MAGE") then PS:FixWowAceSubnamespaces("MAGE") end
-	if (c == "PALADIN") then PS:FixWowAceSubnamespaces("PALADIN") end
-	if (c == "PRIEST") then PS:FixWowAceSubnamespaces("PRIEST") end
-	if (c == "ROGUE") then PS:FixWowAceSubnamespaces("ROGUE") end
-	if (c == "SHAMAN") then PS:FixWowAceSubnamespaces("SHAMAN") end
-	if (c == "WARLOCK") then PS:FixWowAceSubnamespaces("WARLOCK") end
-	if (c == "WARRIOR") then PS:FixWowAceSubnamespaces("WARRIOR") end
+function PS:GetClass(class)
+	if (cclass == "DEATHKNIGHT") then PS:FixWowAceSubnamespaces("DEATHKNIGHT") end
+	if (class == "DRUID") then PS:FixWowAceSubnamespaces("DRUID") end
+	if (class == "HUNTER") then PS:FixWowAceSubnamespaces("HUNTER") end
+	if (class == "MAGE") then PS:FixWowAceSubnamespaces("MAGE") end
+	if (class == "PALADIN") then PS:FixWowAceSubnamespaces("PALADIN") end
+	if (class == "PRIEST") then PS:FixWowAceSubnamespaces("PRIEST") end
+	if (class == "ROGUE") then PS:FixWowAceSubnamespaces("ROGUE") end
+	if (class == "SHAMAN") then PS:FixWowAceSubnamespaces("SHAMAN") end
+	if (class == "WARLOCK") then PS:FixWowAceSubnamespaces("WARLOCK") end
+	if (class == "WARRIOR") then PS:FixWowAceSubnamespaces("WARRIOR") end
 end
 
 function PS:WipeTable(t)
@@ -324,22 +324,26 @@ function PS:SpellWarn(combatEvent, sourceName, spellId, spellName)
 		PS:PrintIt("Proczors: " .. combatEvent .. ", " .. sourceName .. ", " .. spellId .. ", " .. spellName)
 	end
 	if (PS.db.profile.turnOn and combatEvent ~= "SPELL_AURA_REMOVED" and combatEvent ~= "SPELL_AURA_REFRESHED" and combatEvent == "SPELL_AURA_APPLIED" and sourceName == UnitName("player")) then
-		for k,v in pairs(PS.db.profile.SID) do
-			if (spellId == nil or spellName == nil) then
-				return
-			elseif (find(spellId,v) or find(lower(spellName),lower(v))) then
-				local name,_,spellTexture = GetSpellInfo(spellId or spellName)
-				if (PS.db.profile.Sound) then
-					PlaySoundFile(PS.SoundFile, "SFX")
-				end
-				if (PS.db.profile.Flash) then
-					PS:Flash()
-				end
-				if (PS.db.profile.Icon) then
-					PS:Icon(spellTexture)
-				end
-				if (PS.db.profile.Msg) then
-					UIErrorsFrame:AddMessage(name,1,0,0,nil,3)
+		if (PS.db.profile.SID == nil) then
+			PS.db.profile.SID = PS:GetClass(englishClass)
+		else
+			for k,v in pairs(PS.db.profile.SID) do
+				if (spellId == nil or spellName == nil) then
+					return
+				elseif (find(spellId,v) or find(lower(spellName),lower(v))) then
+					local name,_,spellTexture = GetSpellInfo(spellId or spellName)
+					if (PS.db.profile.Sound) then
+						PlaySoundFile(PS.SoundFile, "SFX")
+					end
+					if (PS.db.profile.Flash) then
+						PS:Flash()
+					end
+					if (PS.db.profile.Icon) then
+						PS:Icon(spellTexture)
+					end
+					if (PS.db.profile.Msg) then
+						UIErrorsFrame:AddMessage(name,1,0,0,nil,3)
+					end
 				end
 			end
 		end
