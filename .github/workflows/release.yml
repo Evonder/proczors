@@ -1,4 +1,4 @@
-name: Release new AddOn version
+name: Build Release
 on:
   push:
     branches:
@@ -17,12 +17,11 @@ jobs:
       # pull the repository (required)
       - uses: actions/checkout@v1
 
-      # run release.sh without any arguments (default)
-      - uses: Evonder/packager@master
-        with:
-          args: release.sh
+      # fetch release from github and make executable
+      - name: Fetch Script
+        run: |
+        wget -O ~/release.sh https://raw.githubusercontent.com/Evonder/packager/master/release.sh
+        chmod +x ~/release.sh
 
-      # run release.sh with arguments
-      #- uses: BigWigsMods/packager@master
-      #  with:
-      #    args: release.sh -s        
+      - name: Package and Push
+        run: ~/release.sh
