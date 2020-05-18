@@ -5,6 +5,11 @@ on:
       - master
     tags:
       #- '**'
+
+env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GH_API_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+      
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -15,13 +20,9 @@ jobs:
       # run release.sh without any arguments (default)
       - uses: Evonder/packager@master
         with:
-          args: release.sh -w 0
+          args: release.sh -p 26567
 
       # run release.sh with arguments
       #- uses: BigWigsMods/packager@master
       #  with:
       #    args: release.sh -s        
-
-    env:
-      CF_API_KEY: ${{ secrets.CF_API_KEY }}
-      GH_API_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
